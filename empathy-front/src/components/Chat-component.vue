@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     analyzeMessage(data) {
-      console.log(data);
+      // console.log(data);
       switch (data.about) {
         case "question":
           this.resetAll();
