@@ -13,23 +13,56 @@
         </h2>
         <div class="home12-signinas">
           <h2>sign in as</h2>
-          <button class="btn-getstarted">student  <i class="fas fa-chevron-right"></i></button>
-          <button class="btn-getstarted">parent  <i class="fas fa-chevron-right"></i></button>
-          <button class="btn-getstarted">administration  <i class="fas fa-chevron-right"></i></button>
+          <router-link to="/chat">            
+            <button class="btn-getstarted">student  <i class="fas fa-chevron-right"></i></button>
+          </router-link>
+          <!-- <button class="btn-getstarted">parent  <i class="fas fa-chevron-right"></i></button>  -->
+          <router-link to="/admin">            
+            <button class="btn-getstarted">administration  <i class="fas fa-chevron-right"></i></button>
+          </router-link>
           <input type="text" name="studentid" id="studentid" placeholder="enter student id">
         </div>
       </div>
     </div>
+        <div id="ids"></div>
   </div>
 </template>
 
 <script>
+
+import axios from 'axios';
+
 export default {
   name: "HomeComponent",
+  data() {
+    return {
+      serverIp: "165.22.211.244",
+    }
+  },
+  mounted() {
+    axios('http://'+ this.serverIp + '/get_students_notdone')
+      .then(data => {
+        var students = data.data.students;
+        students = students.slice(0, 5)
+        var str = ''
+        students.forEach(element => {
+          str += element[0]
+          str += '\n' 
+        });
+        
+        document.getElementById('ids').innerHTML = str
+      })
+  }
 };
 </script>
 
 <style scoped>
+
+#ids {
+  color: white;
+  letter-spacing: 2px;
+}
+
 .home-wrapper1 {
   display: grid;
   padding: 0 2vw;

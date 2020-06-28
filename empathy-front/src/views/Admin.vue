@@ -1,24 +1,24 @@
 <template>
-  <div class='result-main'>
+  <div class='admin-main'>
     <Header v-bind:activePage="pageName"/>
-    <ResultComponent />
+    <AdminComponent />
   </div>
 </template>
 
 <script>
 
 import Header from "../components/Header";
-import ResultComponent from "../components/Result-component"
+import AdminComponent from "../components/Admin-component";
 
 export default {
-  name:'Result',
+  name:'Admin',
   components: {
     Header,
-    ResultComponent
+    AdminComponent
   },
   data() {
     return {
-      pageName: 'home',
+      pageName: "home"
     }
   }
 

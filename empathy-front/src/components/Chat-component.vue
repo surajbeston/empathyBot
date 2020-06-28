@@ -48,9 +48,9 @@ export default {
   methods: {
     analyzeMessage(data) {
       // console.log(data);
+      
       switch (data.about) {
         case "question":
-          this.resetAll();
           this.addMessage("incoming", data.question);
           this.scrollDown();
           var btnIsPresent = false;
@@ -119,6 +119,8 @@ export default {
       );
       this.addMessage("outgoing", answer);
       this.scrollDown();
+      this.resetAll();
+
     },
 
     numberInputCreator() {
@@ -222,7 +224,7 @@ export default {
     axios("http://" + this.serverIp + "/id")
       .then((data) => {
         this.id = data.data.id;
-
+        console.log(this.id);
         this.clientSocket = new WebSocket("ws://" + this.serverIp + "/ws/chat/" + this.id + "/");
 
         this.clientSocket.onopen = () => {
@@ -276,7 +278,7 @@ button {
   display: flex;
   flex-direction: column;
   padding: 10px 10px 0px 10px;
-  height: 85%;
+  height: 83%;
   overflow-y: scroll;
 }
 
