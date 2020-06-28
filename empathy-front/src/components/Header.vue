@@ -4,7 +4,7 @@
       <div class="navbar-link-container">
         <router-link to="/" class="home">Home</router-link>
         <router-link to="/about" class="about">About</router-link>
-        <router-link to="/help" class="help">Help</router-link>
+        <router-link to="/" class="help">Help</router-link>
       </div>
       <div class="navbar-logo">
         <span class="h-font">EMPATHY</span>
