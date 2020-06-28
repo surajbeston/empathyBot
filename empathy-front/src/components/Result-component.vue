@@ -20,7 +20,7 @@
         <h4>{{sentiment}}</h4>
         <br>
         <h2>Questions:</h2>
-        <div v-bind:key="question" v-for='question in questions'>
+        <div v-bind:key="question[0]" v-for='question in questions'>
           <br>
           <h4>{{question[0]}}</h4>
           
