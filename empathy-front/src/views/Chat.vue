@@ -1,6 +1,6 @@
 <template>
   <div class='chat-main'>
-    <Header />
+    <Header v-bind:activePage="pageName"/>
     <ChatComponent />
   </div>
 </template>
@@ -15,6 +15,11 @@ export default {
   components: {
     Header,
     ChatComponent
+  },
+  data() {
+    return {
+      pageName: "home"
+    }
   }
 
 }
