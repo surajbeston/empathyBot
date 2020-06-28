@@ -6,10 +6,9 @@
       </div>
       <div class="home-wrapper1 home12">
         <h2>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero voluptatem praesentium accusantium hic
-          illum esse fuga ut, nostrum tempore enim nobis doloribus ipsam eveniet eos aperiam a? Alias minus
-          asperiores quae necessitatibus sunt voluptatum voluptate dignissimos, laudantium adipisci numquam ad
-          voluptas mollitia. Harum similique earum natus quas saepe! Blanditiis, possimus.
+          Empathy Bot is a chat bot that is designed to know a child through school academics record and through a set of questions, 
+          with the help of which it can gain some insights about childs mental state. It can pre-diagonose some mental states or disorders 
+          which can then help in complete diagnosis.
         </h2>
         <div class="home12-signinas">
           <h2>sign in as</h2>
