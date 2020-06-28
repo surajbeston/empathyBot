@@ -4,7 +4,7 @@
       <div class="result-wrapper1 result11">
         <img src="../assets/result/success1.png" alt="success-vector">
       </div>
-      <div class="result-wrapper1 result12">
+      <div id="disResult" class="result-wrapper1 result12">
         
       </div>
     </div>
@@ -27,7 +27,22 @@ export default {
     console.log(this.id);
     axios('http://'+ this.serverIp + "/analyse/"+ this.id)
       .then(data => {
-        console.log(data);
+        console.log(data.data);
+        document.getElementById("disResult").innerHTML += data.data.ide
+        document.getElementById("disResult").innerHTML += '<br>'
+        document.getElementById("disResult").innerHTML += '<br>'
+        document.getElementById("disResult").innerHTML += `possible disorders: `
+        document.getElementById("disResult").innerHTML += '<br>'
+        document.getElementById("disResult").innerHTML += `${data.data.disorders}`
+        
+        document.getElementById("disResult").innerHTML += '<br>'
+        document.getElementById("disResult").innerHTML += '<br>'
+        document.getElementById("disResult").innerHTML += `questions: `
+        document.getElementById("disResult").innerHTML += '<br>'
+        // data.data.question_arr.forEach(element => {
+        //   console.log(element);
+        // });
+        document.getElementById("disResult").innerHTML += `${data.data.question_arr}`
       })
   }
 
