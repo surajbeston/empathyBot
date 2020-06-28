@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from api.views import test, get_id, create_questions, marks_db, get_data, analyse
+from api.views import test, get_id, create_questions, marks_db, get_data, analyse, get_students
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,5 +24,6 @@ urlpatterns = [
     path("fill_questions", create_questions),
     path("marks_db", marks_db),
     path("get_data", get_data),
-    path("analyse/<ide>", analyse)
+    path("analyse/<ide>", analyse),
+    path("get_students", get_students)
 ]

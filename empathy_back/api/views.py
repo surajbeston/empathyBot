@@ -68,9 +68,9 @@ def analyse(request, ide):
     all_feelings = Feeling.objects.filter(belongs_to = student)
     feelings = [obj.feeling for obj in all_feelings]
 
-    questions = Questions.objects.filter(belongs_to = student)
-    question_arr = [[question.quesiton, question.answer]for question in questions] 
-    return JsonResponse({"ide": ide,"name": student.name, "sentiment": sentiment, "question_arr": question_arr, "feelings": feelings, "disorders": disorders_arr })
+    questions = Question.objects.filter(belongs_to = student)
+    question_arr = [[question.question, question.answer]for question in questions] 
+    return JsonResponse({"ide": ide,"name": student.name, "sentiment": sentiment, "question_arr": question_arr, "feelings": feelings, "disorders": disorders })
 
 
 
@@ -95,3 +95,10 @@ def get_data(request):
     return JsonResponse([{"questions": questions, "answer_creds": answer_creds, "redirection": redirection, "disorders_arr": disorders_arr,\
         "response_pos": response_pos, "response_neg": response_neg}], safe = False)
 
+
+@csrf_exempt
+def get_students(request):
+    all_students = Student.objects.filter(done = True)
+    students = [[student.ide, student.name] for student in all_students]
+    return JsonResponse({"students": students})
+    
