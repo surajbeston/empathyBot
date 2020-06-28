@@ -12,17 +12,18 @@
         </h2>
         <div class="home12-signinas">
           <h2>sign in as</h2>
-          <router-link to="/chat">            
-            <button class="btn-getstarted">student  <i class="fas fa-chevron-right"></i></button>
-          </router-link>
-          <!-- <button class="btn-getstarted">parent  <i class="fas fa-chevron-right"></i></button>  -->
           <router-link to="/admin">            
             <button class="btn-getstarted">administration  <i class="fas fa-chevron-right"></i></button>
           </router-link>
-          <input type="text" name="studentid" id="studentid" placeholder="enter student id">
+          <router-link :to="{name: 'Chat', params: {id: studentid}}">            
+            <button class="btn-getstarted">student  <i class="fas fa-chevron-right"></i></button>
+          </router-link>
+          <!-- <button class="btn-getstarted">parent  <i class="fas fa-chevron-right"></i></button>  -->
+          <input type="text" v-model="studentid" id="studentid" placeholder="enter student id if student">
         </div>
       </div>
     </div>
+        <h1 style="color:white;">Use these ids for demo</h1>
         <div id="ids"></div>
   </div>
 </template>
@@ -35,6 +36,7 @@ export default {
   name: "HomeComponent",
   data() {
     return {
+      studentid: '',
       serverIp: "165.22.211.244",
     }
   },
@@ -46,7 +48,7 @@ export default {
         var str = ''
         students.forEach(element => {
           str += element[0]
-          str += '\n' 
+          str += '<br>' 
         });
         
         document.getElementById('ids').innerHTML = str

@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   name: "ChatComponent",
@@ -48,7 +48,7 @@ export default {
   methods: {
     analyzeMessage(data) {
       // console.log(data);
-      
+
       switch (data.about) {
         case "question":
           this.addMessage("incoming", data.question);
@@ -90,14 +90,14 @@ export default {
             NaN;
           }
           if (numberIsPresent) {
-            NaN
+            NaN;
           }
 
           break;
 
-        case 'response':
-          if (data.response !== '') {
-            this.addMessage('incoming', data.response)
+        case "response":
+          if (data.response !== "") {
+            this.addMessage("incoming", data.response);
           }
           break;
 
@@ -120,7 +120,6 @@ export default {
       this.addMessage("outgoing", answer);
       this.scrollDown();
       this.resetAll();
-
     },
 
     numberInputCreator() {
@@ -221,34 +220,34 @@ export default {
       this.numberInputCreator();
     });
 
-    axios("http://" + this.serverIp + "/id")
-      .then((data) => {
-        this.id = data.data.id;
-        console.log(this.id);
-        this.clientSocket = new WebSocket("ws://" + this.serverIp + "/ws/chat/" + this.id + "/");
+    // axios("http://" + this.serverIp + "/id")
+    //   .then((data) => {
+    this.id = this.$route.params.id;
+    console.log(this.id);
+    this.clientSocket = new WebSocket("ws://" + this.serverIp + "/ws/chat/" + this.id + "/");
 
-        this.clientSocket.onopen = () => {
-          console.log("Socket Created!");
-          this.clientSocket.send(
-            JSON.stringify({
-              init: true,
-              ide: this.id,
-            })
-          );
-        };
+    this.clientSocket.onopen = () => {
+      console.log("Socket Created!");
+      this.clientSocket.send(
+        JSON.stringify({
+          init: true,
+          ide: this.id,
+        })
+      );
+    };
 
-        this.clientSocket.onmessage = (messageData) => {
-          this.allData = JSON.parse(messageData.data);
-          this.analyzeMessage(this.allData);
-        };
+    this.clientSocket.onmessage = (messageData) => {
+      this.allData = JSON.parse(messageData.data);
+      this.analyzeMessage(this.allData);
+    };
 
-        this.clientSocket.onclose = () => {
-          console.log("Socket closed!");
-        };
-      })
-      .catch(() => {
-        console.log("error");
-      });
+    this.clientSocket.onclose = () => {
+      console.log("Socket closed!");
+    };
+    // })
+    // .catch(() => {
+    //   console.log("error");
+    // });
   },
 };
 </script>
