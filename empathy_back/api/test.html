@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Chat Room</title>
+</head>
+<body>
+    <h2 id ="ide"></h2>
+    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
+    <input id="chat-message-input" type="text" size="100"><br>
+    <input id="chat-message-submit" type="button" value="Send">
+    <input id = "starter" type = "button" value="Start">
+    {{ room_name|json_script:"room-name" }}
+    <script>
+        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        document.querySelector("#ide").innerHTML = roomName;
+        const chatSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/chat/'
+            + roomName
+            + '/'
+        );
+
+        var question_;
+        var answer_creds;
+
+        //step 2: aba server le questions haru pathauna thali halxa....
+        // data.question bhaneko chae question ho chat ma dekhaune parne 
+        // data.answer_creds cahe euta arr ho jasma kun kun tarika le answer dina sakinxa bhanne hunxa 
+        // data.answer_creds ma euta tah "Text input" jun aaye paxi temele textbox dekhaunu parne hunxa 
+        // arko tesma "Number input" hunxa jun aayesi number matrae halna dinu parxa 
+        // arko tesma "YES", "NO", "GOOD", "BAD" etiyadi hunxa jun chae as button dekahunu parne hunxa tehi 
+        // aako array ma bhako sabae options haru ho, sabae dekhaunu parne hunxa, ani j ko answer thicho teh as answer pathaune 
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+
+            //data.about chae kasto chalko response ho tah bhanne bujhne 
+            if (data.about == "question"){
+                question_ = data.question;
+                answer_creds = data.answer_creds
+                question_no = data.question_no
+                console.log(question_no)
+                document.querySelector('#chat-log').value += (data.question + '\n');
+            }
+            else if (data.about == "response"){
+                document.querySelector('#chat-log').value += (">>\t"+ data.response + '\n');
+            }
+            else if (data.about == "exit"){
+                document.querySelector('#chat-log').value += (">>\t"+data.response + '\n');
+            }
+            else if (data.about == "info"){
+                document.querySelector('#chat-log').value += (">>\t"+data.response + '\n');
+            }
+
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        document.querySelector('#chat-message-input').focus();
+        document.querySelector('#chat-message-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+            
+                document.querySelector('#chat-message-submit').click();
+            }
+        };
+
+
+        //step 1: Esle init message pathaunxa ani suru uta server active hunxa ani message reply garxa
+        document.querySelector("#starter").onclick = function(e) {
+            chatSocket.send(JSON.stringify({
+                'init': true, "ide": roomName
+            }));
+        }
+
+        // step 3: aba user le enter thiche paxi yess lae pathaunu parne hunxa 
+        //pathaunda question ma aaghi aako question roonName tah tehi bhe halyo ani answer_creds pani aaghi nae aako ani answer cahe user le haleko
+        // inportant chae answer_type jun chae user le kun choose garyo tah answer_creds ko option haru ma aailey lae yo default "Text input" ma xa
+        //ani init la nachalaune
+        // yo bhayesi feri answer aaunxa ani feri mathi onmessage ma janxa
+        document.querySelector('#chat-message-submit').onclick = function(e) {
+            const messageInputDom = document.querySelector('#chat-message-input');
+            const message = messageInputDom.value;
+            chatSocket.send(JSON.stringify({
+                "init": false, "question": question_, "ide": roomName, "answer_creds": answer_creds, "answer": message, 
+                answer_type: "Text input", "question_no": question_no
+            }));
+            messageInputDom.value = '';
+        };
+    </script>
+</body>
+</html>
+
