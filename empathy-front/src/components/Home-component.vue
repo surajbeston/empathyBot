@@ -1,0 +1,102 @@
+<template>
+  <div class="home-component-main">
+    <div class="home-wrapper1">
+      <div class="home-wrapper1 home11">
+        <img src="../assets/home/success1.png" alt="success-vector">
+      </div>
+      <div class="home-wrapper1 home12">
+        <h2>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero voluptatem praesentium accusantium hic
+          illum esse fuga ut, nostrum tempore enim nobis doloribus ipsam eveniet eos aperiam a? Alias minus
+          asperiores quae necessitatibus sunt voluptatum voluptate dignissimos, laudantium adipisci numquam ad
+          voluptas mollitia. Harum similique earum natus quas saepe! Blanditiis, possimus.
+        </h2>
+        <div class="home12-signinas">
+          <h2>sign in as</h2>
+          <button class="btn-getstarted">student  <i class="fas fa-chevron-right"></i></button>
+          <button class="btn-getstarted">parent  <i class="fas fa-chevron-right"></i></button>
+          <button class="btn-getstarted">administration  <i class="fas fa-chevron-right"></i></button>
+          <input type="text" name="studentid" id="studentid" placeholder="enter student id">
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "HomeComponent",
+};
+</script>
+
+<style scoped>
+.home-wrapper1 {
+  display: grid;
+  padding: 0 2vw;
+  grid-template-columns: auto auto;
+  color: rgb(175, 207, 199);
+}
+
+.home11 > img {
+  width: 700px;
+}
+
+.home12 {
+  /* position: relative; */
+  display: grid;
+  grid-template-columns: auto;
+  margin-top: 15vh;
+}
+
+
+h2 {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.home12-signinas {
+  margin-top: 5vh;
+  margin-left: 5vw;
+}
+
+.home12-signinas > h2 {
+  font-size: 40px;
+  text-transform: uppercase;
+  margin-bottom: 2vh;
+}
+
+.btn-getstarted {
+  font-size: 20px;
+  border-radius: 5px;
+  background: none;
+  border: 3px solid rgb(208, 245, 242);
+  outline: none;
+  height: 50px;
+  width: 200px;
+  color: rgb(153, 212, 197);
+  margin: 10px;
+}
+
+.btn-getstarted:hover {
+  color: white;
+}
+
+.home12-signinas > [type='text'] {
+  font-size: 20px;
+  font-weight: bold;
+  background: none;
+  border: none;
+  border-bottom: 3px solid rgb(89, 143, 134);
+  outline: none;
+  text-align: center;
+  width: 80%;
+  margin-top: 50px;
+  color: rgb(224, 255, 250);
+  letter-spacing: 2px;
+}
+
+.home12-signinas > [type='text']:focus {
+  transition: .5s;
+  border-bottom: 3px solid rgb(255, 255, 255);
+}
+
+</style>
