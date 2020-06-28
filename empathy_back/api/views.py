@@ -73,9 +73,6 @@ def analyse(request, ide):
     return JsonResponse({"ide": ide,"name": student.name, "sentiment": sentiment, "question_arr": question_arr, "feelings": feelings, "disorders": disorders })
 
 
-
-
-
 @csrf_exempt
 def get_data(request):
     toasks = ToAsk.objects.all()
@@ -101,4 +98,9 @@ def get_students(request):
     all_students = Student.objects.filter(done = True)
     students = [[student.ide, student.name] for student in all_students]
     return JsonResponse({"students": students})
-    
+
+@csrf_exempt
+def get_students_notdone(request):
+    all_students = Student.objects.filter(done = False)[:100]
+    students = [[student.ide, student.name] for student in all_students if student.name != "naam"]
+    return JsonResponse({"students": students})

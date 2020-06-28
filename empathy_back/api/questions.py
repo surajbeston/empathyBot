@@ -72,7 +72,7 @@ def add_dynamics(text, _for, answer, ide, feeling = None, hashed = None):
             if dynamic_elem[2:-2] == "feel":
                 if len(doc.ents) != 0:
                     for ent in doc.ents:
-                        obj = Feeling(ide, ent.text, hashed)
+                        obj = Feeling(belongs_to = student_obj, feeling = str(ent), hashed = hashed)
                         obj.save()
                     word = str(random.choice(list(doc.ents)))
                     if feeling == "NEGATIVE" and word in good_words:
